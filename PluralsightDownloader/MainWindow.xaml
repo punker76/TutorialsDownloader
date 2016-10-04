@@ -1,0 +1,193 @@
+﻿<Controls:MetroWindow x:Class="PluralsightDownloader.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:local="clr-namespace:PluralsightDownloader"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      Title="Pluralsight Downloader"
+                      Width="640"
+                      Height="480"
+                      Icon="Resources/Movie Download-WF.ico"
+                      WindowStartupLocation="CenterScreen"
+                      mc:Ignorable="d">
+    <Grid>
+        <TabControl>
+            <TabItem Header="login">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="10"
+                               HorizontalAlignment="Right"
+                               Text="username" />
+                    <TextBox Name="UserNameTextbox"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             Width="300"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.Watermark="username" />
+                    <TextBlock Grid.Row="1"
+                               Margin="10"
+                               HorizontalAlignment="Right"
+                               Text="password" />
+                    <PasswordBox Name="PasswordBox"
+                                 Grid.Row="1"
+                                 Grid.Column="1"
+                                 Width="300"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="password" />
+                    <TextBlock Grid.Row="2"
+                               Margin="10"
+                               HorizontalAlignment="Right"
+                               Text="download" />
+                    <TextBox Name="DownloadTextbox"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             Width="300"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.Watermark="download folder" />
+                    <Button Name="SaveConfigButton"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Click="SaveConfigButton_OnClick"
+                            Content="Save" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="downloads">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Name="PlaulistUrlTextbox"
+                                 Width="300"
+                                 Margin="10"
+                                 Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="playlist uri" />
+                        <Controls:ToggleSwitch Name="ShutdownToggleSwitch"
+                                               Content="shutdown"
+                                               OffLabel="no"
+                                               OnLabel="yes" />
+                        <Button Name="DownloadButton"
+                                Width="100"
+                                Margin="10"
+                                Click="DownloadButton_OnClick"
+                                Content="Download" />
+                    </StackPanel>
+                    <TextBlock Name="CourseTitleLabel"
+                               Grid.Row="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="24" />
+                    <TextBlock Name="ElapsedLabel"
+                               Grid.Row="1"
+                               Margin="20,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Foreground="#339933" />
+                    <TextBlock Name="ETALabel"
+                               Grid.Row="1"
+                               Margin="20,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Foreground="#E51400" />
+                    <ScrollViewer Grid.Row="2">
+                        <ItemsControl Name="PlaylistDisplay">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Expander IsExpanded="{Binding Key.Downloaded}">
+                                        <Expander.Header>
+                                            <Grid>
+                                                <Button HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Background="Transparent"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0"
+                                                        Click="CategoryButton_Click"
+                                                        Content="{Binding Key.Category}"
+                                                        Foreground="White" />
+                                                <TextBlock Margin="10,0"
+                                                           HorizontalAlignment="Right"
+                                                           Foreground="White"
+                                                           Text="{Binding Key.WaitTime,
+                                                                          Converter={StaticResource TimeDisplayConverter}}" />
+                                            </Grid>
+                                        </Expander.Header>
+                                        <ListBox ItemsSource="{Binding Value}">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="50" />
+                                                            <ColumnDefinition Width="25" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock HorizontalAlignment="Left"
+                                                                   Foreground="#F09609"
+                                                                   Text="{Binding Name}" />
+                                                        <TextBlock Grid.Column="1"
+                                                                   HorizontalAlignment="Right"
+                                                                   Foreground="#339933"
+                                                                   Text="{Binding WaitTime,
+                                                                                  Converter={StaticResource TimeDisplayConverter}}" />
+                                                        <Border Grid.Column="2"
+                                                                Margin="5"
+                                                                Background="{Binding Downloaded,
+                                                                                     Converter={StaticResource DownloadStatusConverter}}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </Expander>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="queue" Visibility="Hidden">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Name="DownloadQueueTextbox"
+                                 Width="300"
+                                 Margin="5"
+                                 Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="URI" />
+                        <Button Name="AddQueueButton"
+                                Width="100"
+                                Margin="5"
+                                Content="add" />
+                        <Button Name="RemoveQueueButton"
+                                Width="100"
+                                Margin="5"
+                                Content="remove" />
+                    </StackPanel>
+                    <ListBox Name="DownloadQueueListbox" Grid.Row="1" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>
