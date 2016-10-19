@@ -47,10 +47,10 @@
                 {
                     this.PlaylistDisplay.ItemsSource = this.GroupToDictionary(vdos);
 
-                    this.ElapsedLabel.Text =
+                    this.ElapsedChip.Content =
                         TimeDisplayConverter.TimeToReadbleFormat(vdos.Where(v => v.Downloaded).Sum(v => v.WaitTime));
 
-                    this.ETALabel.Text =
+                    this.ETAChip.Content =
                         TimeDisplayConverter.TimeToReadbleFormat(vdos.Where(v => !v.Downloaded).Sum(v => v.WaitTime));
                 };
 
@@ -293,7 +293,7 @@
                 psi.CreateNoWindow = true;
                 psi.UseShellExecute = false;
             }
-            
+
             var process = Process.Start(psi);
             process.WaitForExit();
 

@@ -7,14 +7,10 @@
 
     public class DownloadStatusConverter : IValueConverter
     {
-        private readonly SolidColorBrush green = new SolidColorBrush(Color.FromArgb(255, 140, 191, 38));
-
-        private readonly SolidColorBrush red = new SolidColorBrush(Color.FromArgb(255, 229, 20, 0));
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var downloaded = (bool)value;
-            return downloaded ? this.green : this.red;
+            return downloaded ? "CheckboxMarkedCircleOutline" : "CheckboxBlankCircleOutline";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -4,6 +4,7 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:local="clr-namespace:PluralsightDownloader"
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       Title="Pluralsight Downloader"
                       Width="640"
@@ -14,61 +15,30 @@
     <Grid>
         <TabControl>
             <TabItem Header="login">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Margin="10"
-                               HorizontalAlignment="Right"
-                               Text="username" />
+                <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                     <TextBox Name="UserNameTextbox"
-                             Grid.Row="0"
-                             Grid.Column="1"
-                             Width="300"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             Controls:TextBoxHelper.Watermark="username" />
-                    <TextBlock Grid.Row="1"
-                               Margin="10"
-                               HorizontalAlignment="Right"
-                               Text="password" />
+                             Width="400"
+                             Margin="10"
+                             materialDesign:HintAssist.Hint="User name"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <PasswordBox Name="PasswordBox"
-                                 Grid.Row="1"
-                                 Grid.Column="1"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Controls:TextBoxHelper.ClearTextButton="True"
-                                 Controls:TextBoxHelper.Watermark="password" />
-                    <TextBlock Grid.Row="2"
-                               Margin="10"
-                               HorizontalAlignment="Right"
-                               Text="download" />
+                                 Width="400"
+                                 Margin="10"
+                                 materialDesign:HintAssist.Hint="Password"
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
                     <TextBox Name="DownloadTextbox"
-                             Grid.Row="2"
-                             Grid.Column="1"
-                             Width="300"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             Controls:TextBoxHelper.Watermark="download folder" />
+                             Width="400"
+                             Margin="10"
+                             materialDesign:HintAssist.Hint="Download folder"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <Button Name="SaveConfigButton"
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Width="100"
-                            HorizontalAlignment="Left"
+                            Width="200"
+                            Margin="10"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth5"
                             Click="SaveConfigButton_OnClick"
-                            Content="Save" />
-                </Grid>
+                            Content="Save"
+                            Style="{DynamicResource MaterialDesignRaisedButton}" />
+                </StackPanel>
             </TabItem>
             <TabItem Header="downloads">
                 <Grid>
@@ -77,82 +47,90 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
                         <TextBox Name="PlaulistUrlTextbox"
-                                 Width="300"
+                                 Grid.Column="0"
                                  Margin="10"
-                                 Controls:TextBoxHelper.ClearTextButton="True"
-                                 Controls:TextBoxHelper.Watermark="playlist uri" />
-                        <Controls:ToggleSwitch Name="ShutdownToggleSwitch"
-                                               Content="shutdown"
-                                               OffLabel="no"
-                                               OnLabel="yes" />
+                                 VerticalAlignment="Center"
+                                 materialDesign:HintAssist.Hint="Playlist uri"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <ToggleButton Name="ShutdownToggleSwitch"
+                                      Grid.Column="1"
+                                      Margin="10"
+                                      VerticalAlignment="Center"
+                                      Content="shutdown"
+                                      Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                      ToolTip="shutdown" />
                         <Button Name="DownloadButton"
+                                Grid.Column="2"
                                 Width="100"
                                 Margin="10"
+                                VerticalAlignment="Center"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth5"
                                 Click="DownloadButton_OnClick"
-                                Content="Download" />
-                    </StackPanel>
+                                Content="Download"
+                                Style="{DynamicResource MaterialDesignRaisedButton}" />
+                    </Grid>
                     <TextBlock Name="CourseTitleLabel"
                                Grid.Row="1"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               FontSize="24" />
-                    <TextBlock Name="ElapsedLabel"
-                               Grid.Row="1"
-                               Margin="20,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Foreground="#339933" />
-                    <TextBlock Name="ETALabel"
-                               Grid.Row="1"
-                               Margin="20,0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               Foreground="#E51400" />
+                               Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                    <materialDesign:Chip Name="ElapsedChip"
+                                         Grid.Row="1"
+                                         Margin="20,0"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                         IsDeletable="False" />
+                    <materialDesign:Chip Name="ETAChip"
+                                         Grid.Row="1"
+                                         Margin="20,0"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         IsDeletable="False" />
                     <ScrollViewer Grid.Row="2">
                         <ItemsControl Name="PlaylistDisplay">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Expander IsExpanded="{Binding Key.Downloaded}">
                                         <Expander.Header>
-                                            <Grid>
-                                                <Button HorizontalAlignment="Left"
-                                                        VerticalAlignment="Center"
-                                                        Background="Transparent"
-                                                        BorderBrush="Transparent"
-                                                        BorderThickness="0"
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:Chip VerticalAlignment="Center"
+                                                                     Content="{Binding Key.WaitTime,
+                                                                                       Converter={StaticResource TimeDisplayConverter}}"
+                                                                     IsDeletable="False" />
+                                                <Button VerticalAlignment="Center"
                                                         Click="CategoryButton_Click"
                                                         Content="{Binding Key.Category}"
-                                                        Foreground="White" />
-                                                <TextBlock Margin="10,0"
-                                                           HorizontalAlignment="Right"
-                                                           Foreground="White"
-                                                           Text="{Binding Key.WaitTime,
-                                                                          Converter={StaticResource TimeDisplayConverter}}" />
-                                            </Grid>
+                                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                            </StackPanel>
                                         </Expander.Header>
-                                        <ListBox ItemsSource="{Binding Value}">
+                                        <ListBox Margin="20" ItemsSource="{Binding Value}">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="50" />
-                                                            <ColumnDefinition Width="25" />
                                                         </Grid.ColumnDefinitions>
-                                                        <TextBlock HorizontalAlignment="Left"
-                                                                   Foreground="#F09609"
-                                                                   Text="{Binding Name}" />
+                                                        <materialDesign:Chip VerticalAlignment="Center"
+                                                                             Content="{Binding WaitTime,
+                                                                                               Converter={StaticResource TimeDisplayConverter}}"
+                                                                             IsDeletable="False">
+                                                            <materialDesign:Chip.Icon>
+                                                                <materialDesign:PackIcon Kind="{Binding Downloaded, Converter={StaticResource DownloadStatusConverter}}" />
+                                                            </materialDesign:Chip.Icon>
+                                                        </materialDesign:Chip>
                                                         <TextBlock Grid.Column="1"
-                                                                   HorizontalAlignment="Right"
-                                                                   Foreground="#339933"
-                                                                   Text="{Binding WaitTime,
-                                                                                  Converter={StaticResource TimeDisplayConverter}}" />
-                                                        <Border Grid.Column="2"
-                                                                Margin="5"
-                                                                Background="{Binding Downloaded,
-                                                                                     Converter={StaticResource DownloadStatusConverter}}" />
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                                   Text="{Binding Name}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>
@@ -162,30 +140,6 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
-                </Grid>
-            </TabItem>
-            <TabItem Header="queue" Visibility="Hidden">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Name="DownloadQueueTextbox"
-                                 Width="300"
-                                 Margin="5"
-                                 Controls:TextBoxHelper.ClearTextButton="True"
-                                 Controls:TextBoxHelper.Watermark="URI" />
-                        <Button Name="AddQueueButton"
-                                Width="100"
-                                Margin="5"
-                                Content="add" />
-                        <Button Name="RemoveQueueButton"
-                                Width="100"
-                                Margin="5"
-                                Content="remove" />
-                    </StackPanel>
-                    <ListBox Name="DownloadQueueListbox" Grid.Row="1" />
                 </Grid>
             </TabItem>
         </TabControl>
