@@ -19,6 +19,8 @@
 
     public partial class MainWindow : MetroWindow
     {
+        #region Constructor
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -29,7 +31,11 @@
                 };
         }
 
-        private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Events
+
+        private void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {
             this.DownloadCourse();
         }
@@ -42,6 +48,46 @@
             Properties.Settings.Default.Save();
             this.DialogHost.IsOpen = false;
         }
+        
+        private void CategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var category = (e.Source as Button).Content.ToString();
+            var directory = Path.Combine(Properties.Settings.Default.Downloads, CourseTitleLabel.Text, category);
+            Process.Start(directory);
+        }
+
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.UpdateButton.IsEnabled = false;
+            this.SaveConfigButton.IsEnabled = false;
+            this.UpdateProgress.Visibility = Visibility.Visible;
+
+            await Task.Run(() =>
+            {
+                var arguments = @"--update";
+                var psi = new ProcessStartInfo(@"Resources\youtube-dl.exe", arguments);
+
+                if (!Debugger.IsAttached)
+                {
+                    psi.CreateNoWindow = true;
+                    psi.UseShellExecute = false;
+                }
+
+                var process = Process.Start(psi);
+                process.WaitForExit();
+            })
+            .ContinueWith(a =>
+            {
+                this.UpdateButton.IsEnabled = true;
+                this.SaveConfigButton.IsEnabled = true;
+                this.UpdateProgress.Visibility = Visibility.Hidden;
+            },
+            TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        #endregion
+
+        #region Private-Methods
 
         private async void DownloadCourse()
         {
@@ -323,11 +369,6 @@
                     .ToDictionary(g => g.Key, g => g.Value);
         }
 
-        private void CategoryButton_Click(object sender, RoutedEventArgs e)
-        {
-            var category = (e.Source as Button).Content.ToString();
-            var directory = Path.Combine(Properties.Settings.Default.Downloads, CourseTitleLabel.Text, category);
-            Process.Start(directory);
-        }
+        #endregion
     }
 }

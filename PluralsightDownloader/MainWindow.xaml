@@ -52,13 +52,29 @@
                              Margin="10"
                              materialDesign:HintAssist.Hint="Download folder"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <Button Name="SaveConfigButton"
-                            Width="200"
-                            Margin="10"
-                            materialDesign:ShadowAssist.ShadowDepth="Depth5"
-                            Click="SaveConfigButton_OnClick"
-                            Content="Save"
-                            Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                    <Grid>
+                        <Button Name="SaveConfigButton"
+                                Width="200"
+                                Margin="5"
+                                HorizontalAlignment="Left"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                Click="SaveConfigButton_OnClick"
+                                Content="Save"
+                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                        <Button Name="UpdateButton"
+                                Width="200"
+                                Margin="5"
+                                HorizontalAlignment="Right"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                Click="UpdateButton_Click"
+                                Content="Update"
+                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                    </Grid>
+                    <ProgressBar Name="UpdateProgress"
+                                 Margin="10"
+                                 IsIndeterminate="True"
+                                 Orientation="Horizontal"
+                                 Visibility="Hidden" />
                 </StackPanel>
             </GroupBox>
         </materialDesign:DialogHost.DialogContent>
