@@ -9,15 +9,13 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Controls;
 
+    using Helpers;
     using HtmlAgilityPack;
-
     using MahApps.Metro.Controls;
-
     using Models;
 
-    using PluralsightDownloader.Helpers;
-    using System.Windows.Controls;
 
     public partial class MainWindow : MetroWindow
     {
@@ -25,7 +23,10 @@
         {
             this.InitializeComponent();
             this.Loaded += (sender, args) =>
-                { this.LoadSettings(); };
+                {
+                    this.LoadSettings();
+                    this.DialogHost.IsOpen = true;
+                };
         }
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
@@ -39,6 +40,7 @@
             Properties.Settings.Default.Password = this.PasswordBox.Password;
             Properties.Settings.Default.Downloads = this.DownloadTextbox.Text;
             Properties.Settings.Default.Save();
+            this.DialogHost.IsOpen = false;
         }
 
         private async void DownloadCourse()
