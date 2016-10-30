@@ -68,7 +68,7 @@ body {
 }
 
 .sp-parallax-bg {
-  background: url('Screenshots/background.png') repeat-x scroll 0 0;
+  background: url('Images/background.png') repeat-x scroll 0 0;
   background-size: cover;
   position: absolute;
   top: 0;
@@ -232,7 +232,7 @@ input.sp-selector-3:checked ~ .sp-content .sp-slider {
 
 input.sp-selector-1:checked ~ .sp-content .sp-slider > li:first-child,
 input.sp-selector-2:checked ~ .sp-content .sp-slider > li:nth-child(2),
-input.sp-selector-3:checked ~ .sp-content .sp-slider > li:nth-child(3),{
+input.sp-selector-3:checked ~ .sp-content .sp-slider > li:nth-child(3) {
     opacity: 1;
 }
 
