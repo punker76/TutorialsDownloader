@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralsightDownloader", "PluralsightDownloader\PluralsightDownloader.csproj", "{4D4FAB4A-E0F5-4BC8-8E0C-11D963DA9B22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5A08AA59-F540-45C5-8A0E-5A53D13387DB}"
+	ProjectSection(SolutionItems) = preProject
+		app.js = app.js
+		index.html = index.html
+		README.md = README.md
+		style.css = style.css
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +26,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://matrixean.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = PluralsightDownloader\\PluralsightDownloader.csproj
-		SccProjectName1 = PluralsightDownloader
-		SccLocalPath1 = PluralsightDownloader
 	EndGlobalSection
 EndGlobal
